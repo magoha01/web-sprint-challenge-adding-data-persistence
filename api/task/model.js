@@ -1,13 +1,39 @@
 // build your `Task` model here
 const db = require("../../data/dbConfig");
 
-function getAll() {
-  return db("tasks as t").select('t.*');
-}
+const getAll = async () => {
+  const rows = await db("tasks as t")
+    .leftJoin("projects as p", "t.project_id", "p.project_id")
+    .select(
+      "task_description",
+      "task_notes",
+      "task_completed",
+      "project_name",
+      "project_description"
+    );
 
-const create = (task) => {
-  return db("tasks").insert(task);
-  // .then(([id]) => getById(id));
+  const result = rows.map((row) => {
+    if (row.task_completed === 1) {
+      return { ...row, task_completed: true };
+    } else if (row.task_completed === 0) {
+      return { ...row, task_completed: false };
+    }
+  });
+
+  return result;
+};
+
+const create = async (task) => {
+  const newTask = await db("tasks")
+    .insert(task)
+    .then(([task_id]) => {
+      return db("tasks").where("task_id", task_id).first();
+    });
+  if (newTask.task_completed === 0) {
+    return { ...newTask, task_completed: false };
+  } else {
+    return { ...newTask, task_completed: true };
+  }
 };
 
 module.exports = {
