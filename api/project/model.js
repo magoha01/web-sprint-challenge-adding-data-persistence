@@ -1,11 +1,5 @@
 const db = require("../../data/dbConfig");
 
-// //{
-//     "project_id":1,
-//     "project_name":"bar",
-//     "project_description":null,
-//     "project_completed":false}]`
-
 const getAll = async () => {
   const rows = await db("projects");
 
@@ -25,7 +19,6 @@ const getById = async (project_id) => {
 };
 
 const create = async (project) => {
-
     const newProject = await db('projects')
     .insert(project)
     .then(([project_id]) => {
