@@ -41,48 +41,53 @@ Add `"start"`. `"server"`, `"migrate"` and `"rollback"` scripts to the `package.
 
 Build the migration(s) in Knex inside the `data/migrations` folder using appropriate data types and constraints. **You must use the table names and the column names described below.** To give a primary key a name different than `id`, do `table.increments("project_id")` instead of `table.increments()`.
 
-- [X] A **project** is what needs to be done and is stored in a `projects` table with the following columns:
+- [x] A **project** is what needs to be done and is stored in a `projects` table with the following columns:
 
-  - [X] `project_id` - primary key
-  - [X] `project_name` - required
-  - [X] `project_description` - optional
-  - [X] `project_completed` - the database defaults it to `false` (integer 0) if not provided
+  - [x] `project_id` - primary key
+  - [x] `project_name` - required
+  - [x] `project_description` - optional
+  - [x] `project_completed` - the database defaults it to `false` (integer 0) if not provided
 
-- [X] A **resource** is anything needed to complete a project and is stored in a `resources` table with the following columns:
+- [x] A **resource** is anything needed to complete a project and is stored in a `resources` table with the following columns:
 
-  - [X] `resource_id` - primary key
-  - [X] `resource_name` - required and unique
-  - [X] `resource_description` - optional
+  - [x] `resource_id` - primary key
+  - [x] `resource_name` - required and unique
+  - [x] `resource_description` - optional
 
-- [X] A **task** is one of the steps needed to complete a project and is stored in a `tasks` table with the following columns:
+- [x] A **task** is one of the steps needed to complete a project and is stored in a `tasks` table with the following columns:
 
-  - [X] `task_id` - primary key
-  - [X] `task_description` - required
-  - [X] `task_notes` - optional
-  - [X] `task_completed` - the database defaults it to `false` (integer 0) if not provided
-  - [X] `project_id` - required and points to an actual `project_id` in the `projects` table
+  - [x] `task_id` - primary key
+  - [x] `task_description` - required
+  - [x] `task_notes` - optional
+  - [x] `task_completed` - the database defaults it to `false` (integer 0) if not provided
+  - [x] `project_id` - required and points to an actual `project_id` in the `projects` table
 
-- [X] A **resource assignment** connects a resource and a project, and is stored in a `project_resources` table. You decide what columns to use.
+- [x] A **resource assignment** connects a resource and a project, and is stored in a `project_resources` table. You decide what columns to use.
 
 ### Required Endpoints
 
 Build an API inside the `api` folder with endpoints for:
 
 - [ ] `[POST] /api/resources`
+
   - Example of response body: `{"resource_id":1,"resource_name":"foo","resource_description":null}`
 
 - [ ] `[GET] /api/resources`
+
   - Example of response body: `[{"resource_id":1,"resource_name":"foo","resource_description":null}]`
 
 - [ ] `[POST] /api/projects`
+
   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Example of response body: `{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}`
 
 - [ ] `[GET] /api/projects`
+
   - Even though `project_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Example of response body: `[{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}]`
 
 - [ ] `[POST] /api/tasks`
+
   - Even though `task_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Example of response body: `{"task_id":1,"task_description":"baz","task_notes":null,"task_completed":false,"project_id:1}`
 
@@ -90,7 +95,6 @@ Build an API inside the `api` folder with endpoints for:
   - Even though `task_completed` is stored as an integer, the API uses booleans when interacting with the client
   - Each task must include `project_name` and `project_description`
   - Example of response body: `[{"task_id":1,"task_description":"baz","task_notes":null,"task_completed":false,"project_name:"bar","project_description":null}]`
-
 
 **Important Notes (READ!)**
 
@@ -112,6 +116,17 @@ Build an API inside the `api` folder with endpoints for:
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Explain the difference between Relational Databases and SQL.
+
+   A relational database is a database that stores data in tables. SQL is the the language relational databases are written in, and can be used to retrieve edit, update, delete, or create new records in the database.
+
 2. Why do tables need a Primary Key?
+
+   Tables need a primary key so that each item in the table has a unique identifier in order to be able to easily access that item's data.
+
 3. What is the name given to a table column that references the Primary Key on another table?
+
+   A foreign key.
+
 4. What do we need in order to have a _many to many_ relationship between two tables?
+
+In order to have a many to many relationship between tables, an intermediary table that holds foreign keys for each of the two tables.
