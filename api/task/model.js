@@ -2,7 +2,7 @@
 const db = require("../../data/dbConfig");
 
 function getAll() {
-  return db("tasks");
+  return db("tasks as t").select('t.*');
 }
 
 const create = (task) => {
