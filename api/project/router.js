@@ -1,4 +1,3 @@
-// build your `/api/projects` router here
 const router = require("express").Router();
 const Projects = require("./model");
 
@@ -23,10 +22,3 @@ router.post("/", (req, res, next) => {
 
 module.exports = router;
 
-//  const result = {
-//    project_id: rows[0].project_id,
-//    project_name: rows[0].project_name,
-//    project_description: rows[0].project_description,
-//    //project_completed: rows[0].project_completed < 1 ? false : true,
-//  };
-//  return result;
